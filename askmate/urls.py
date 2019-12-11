@@ -15,12 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from qna_app.views import qna_app
-from user_app.views import user_app
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('qna_app.urls')),
-    path('', include('qna_app.urls')),
-
-]
+    path('qna/', include('qna_app.urls')),
+    path('user/', include('qna_app.urls')),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
