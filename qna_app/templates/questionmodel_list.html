@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    {% for q in ques%}
+        - {{q.question_desc}}
+        {{q.question_votes}}
+        <br>
+        <a href="{% url 'qna:update' q.id %}"><input type="button" value="update"></a>
+        <a href="{% url 'qna:delete' q.id %}"><input type="button" value="delete"></a>
+        <a href="{% url 'qna:vote' q.id %}"><input type="button" value="vote"></a>
+        <a href="{% url 'qna:addans' q.id %}"><input type="button" value="answer"></a>
+        <br>
+        <hr>
+    {% endfor %}
+    <a href="{% url 'qna:add'%}"><input type="button" value="add"></a>
+</body>
+</html>

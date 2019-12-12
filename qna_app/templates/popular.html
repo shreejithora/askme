@@ -15,9 +15,9 @@
                     Q. {{q.question_desc|truncatechars:20}}(<i>{{q.category}}</i>)
                     <br>
                     <span style="margin-left: 18px; font-size: small; color: grey;"><i>(category:{{q.title}})</i></span>
-                    {% if q.question_img == True%}
+                    {% if q.question_img != null %}
                     <br>
-                    <img src="../../media/QuestionImg/{{q.question_img}}" style="width: 500px;">
+                    <img src='../../media/{{q.question_img}}' style="height: 100px; width: 100px;">
                     {% endif %}
                     <br>
                     <span style="font-size: x-small; border: 0.5px solid grey; padding: 3px; border-radius: 25px;">votes:{{q.question_votes}} </span>
