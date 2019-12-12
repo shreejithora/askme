@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>popular</title>
+</head>
+<body>
+    <table>
+        {% for q in ques %}
+            <tr>
+                <td><h3 style="margin: 0;">{{q.posted_by}} </h3> <span style="color: grey; font-size: small;">{{q.timestamp|date:'Y-M-D  h-m-s P'}}</span>
+                    <br>
+                    Q. {{q.question_desc|truncatechars:20}}(<i>{{q.category}}</i>)
+                    <br>
+                    <span style="margin-left: 18px; font-size: small; color: grey;"><i>(category:{{q.title}})</i></span>
+                    {% if q.question_img == True%}
+                    <br>
+                    <img src="../../media/QuestionImg/{{q.question_img}}" style="width: 500px;">
+                    {% endif %}
+                    <br>
+                    <span style="font-size: x-small; border: 0.5px solid grey; padding: 3px; border-radius: 25px;">votes:{{q.question_votes}} </span>
+                    <hr>
+                </td>
+                <!-- <td><b>{{q.posted_by}}</b></td> -->
+                <!-- <td>{{q.category}}</td> -->
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
