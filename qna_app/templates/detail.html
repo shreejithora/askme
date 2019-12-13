@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{question.title}}
+{% endblock%}
+
+{% block main_content %}
+    <b>{{question.title}}</b> <br>
+    <h5>{{question.question_desc}} </h5>
+    <span style="font-size: x-small; border: 0.5px solid grey; padding: 3px; border-radius: 25px;">votes:{{question.question_votes}} </span>
+    <br>
+    Answers: <br>
+    {% for ans in answers %}
+        - {{ans.ans_desc}} <br>
+    {% endfor %} <br>
+    <br><h3>Answer this question:</h3>
+    <form action="#" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Your Answer</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="answer" rows="3"></textarea>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    
+{% endblock %}

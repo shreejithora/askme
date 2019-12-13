@@ -10,9 +10,13 @@ class QuestionListView(ListView):
     queryset = QuestionModel.objects.all()
 
 def question(requests):
-    Question = QuestionModel.objects.all()
+    if 'id' in requests.session:
+        Question = QuestionModel.objects.all()
+        return render(requests, 'questionmodel_list.html', {'ques':Question})
+    else:
+        return redirect('user:login')
 
-    return render(requests, 'questionmodel_list.html', {'ques':Question})
+    
 
 def popular(request):
     Question = QuestionModel.objects.all()
@@ -82,6 +86,34 @@ def add_ans(request, id):
         c = {**a, **b}
         return render(request, 'answermodel_create.html', c) 
     
+def add_answer(request, id):
+    question_instance = QuestionModel.objects.get(id=id) 
+    # answer_instance = AnswerModel.objects.all()
+    answer = request.POST.get('ans_desc') 
+    comment = AnswerModel.objects.create(ans_desc = answer, question=question_instance )
+    comment.save()
+    return HttpResponse('commented')
+
+def detail(request, id):
+    # question = None
+    # try:
+    #     question = QuestionModel.objects.get(id=id)
+    # except:
+    #     question = []
+    question = QuestionModel.objects.filter(id=id).first()
+    if request.method == "POST":
+        description = request.POST['answer']
+        # question = id
+        answer = AnswerModel(ans_desc = description, question = question)
+        answer.save(force_insert=True)
+
+    
+    answers = AnswerModel.objects.filter(question=id)
+    d = {
+        'question':question,
+        'answers':answers
+    }
+    return render(request, 'detail.html', d)
     
 
 

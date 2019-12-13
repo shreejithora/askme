@@ -1,23 +1,37 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block main_content %}
+<!-- <a href="{% url 'user:logout' %}" style="float: right;">logout</a><br> -->
+{% for q in ques%}
+    {{q.id}}. <a href="{% url 'qna:detail' q.id %}">{{q.question_desc}} </a><br>
+    <!-- <br>
+    <form method="POST" action="{% url 'qna:comment' q.id %}">
+        <textarea name="ans_desc" cols="30" rows="2" ></textarea>
+        <button>comment</button>
+    </form>
+    <a href="{% url 'qna:update' q.id %}"><input type="button" value="update"></a>
+    <a href="{% url 'qna:delete' q.id %}"><input type="button" value="delete"></a>
+    <a href="{% url 'qna:vote' q.id %}"><input type="button" value="vote"></a>
+    <br> -->
+    <span style="font-size: x-small; border: 0.5px solid grey; padding: 3px; border-radius: 25px;">votes:{{q.question_votes}} </span>
+    <hr>
+{% endfor %}
+<a href="{% url 'qna:add'%}"><input type="button" value="add"></a>
+{% endblock%}
+
+
+
+<!-- <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
 <body>
-    {% for q in ques%}
-        - {{q.question_desc}}
-        {{q.question_votes}}
-        <br>
-        <a href="{% url 'qna:update' q.id %}"><input type="button" value="update"></a>
-        <a href="{% url 'qna:delete' q.id %}"><input type="button" value="delete"></a>
-        <a href="{% url 'qna:vote' q.id %}"><input type="button" value="vote"></a>
-        <a href="{% url 'qna:addans' q.id %}"><input type="button" value="answer"></a>
-        <br>
-        <hr>
-    {% endfor %}
-    <a href="{% url 'qna:add'%}"><input type="button" value="add"></a>
+   
 </body>
-</html>
+</html> -->
