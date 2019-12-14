@@ -15,8 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from qna_app.views import question, popular, addquestion, update_question, del_question, vote_question, add_ans, QuestionListView, add_answer, detail
-
+from qna_app.views import home, question, popular, addquestion, update_question, del_question, vote_question, add_ans, QuestionListView, add_answer, detail
 app_name = 'qna'
 
 urlpatterns = [
@@ -31,6 +30,4 @@ urlpatterns = [
     path('addanswer/<int:id>/', add_answer, name='comment'), 
     path('listview/', QuestionListView.as_view(), name='listview'),
     path('detail/<int:id>/', detail, name='detail'),
-
-
 ]

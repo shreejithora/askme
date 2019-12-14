@@ -2,8 +2,9 @@
 
 {% block main_content %}
 <!-- <a href="{% url 'user:logout' %}" style="float: right;">logout</a><br> -->
+
 {% for q in ques%}
-    {{q.id}}. <a href="{% url 'qna:detail' q.id %}">{{q.question_desc}} </a><br>
+    {{ forloop.counter }}. <a href="{% url 'qna:detail' q.id %}">{{q.question_desc}} </a><br>
     <!-- <br>
     <form method="POST" action="{% url 'qna:comment' q.id %}">
         <textarea name="ans_desc" cols="30" rows="2" ></textarea>
@@ -16,7 +17,6 @@
     <span style="font-size: x-small; border: 0.5px solid grey; padding: 3px; border-radius: 25px;">votes:{{q.question_votes}} </span>
     <hr>
 {% endfor %}
-<a href="{% url 'qna:add'%}"><input type="button" value="add"></a>
 {% endblock%}
 
 

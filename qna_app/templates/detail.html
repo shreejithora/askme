@@ -11,8 +11,14 @@
     <br>
     Answers: <br>
     {% for ans in answers %}
-        - {{ans.ans_desc}} <br>
+        {{forloop.counter}}. {{ans.ans_desc}} <br>
     {% endfor %} <br>
+    
+    {% if 'id' in request.session %}
+    <a href="{% url 'qna:update' question.id %}"><input type="button" value="update"></a>
+    <a href="{% url 'qna:delete' question.id %}"><input type="button" value="delete"></a>
+    <a href="{% url 'qna:vote' question.id %}"><input type="button" value="vote"></a>
+    
     <br><h3>Answer this question:</h3>
     <form action="#" method="POST">
         {% csrf_token %}
@@ -21,6 +27,7 @@
             <textarea class="form-control" id="exampleFormControlTextarea1" name="answer" rows="3"></textarea>
             <button type="submit">Submit</button>
         </div>
+    {% endif %}
     </form>
     
 {% endblock %}

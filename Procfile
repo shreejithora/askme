@@ -1,0 +1,1 @@
+web: gunicorn askmate9841.wsgi

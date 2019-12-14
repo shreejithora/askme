@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from user_app.models import UserModel
+from qna_app.urls import home
 
 
 # Create your views here.
@@ -15,7 +16,7 @@ def loginauth(request):
                 request.session['email'] = user.email
                 request.session['id'] = user.id
                 request.session['name'] = user.name
-                return redirect('qna:read')
+                return redirect('home')
         else:
             return HttpResponse('Wrong Credentials')
     else:
@@ -23,6 +24,6 @@ def loginauth(request):
 
 def logout(request):
     request.session.flush()
-    return redirect('user:login')
+    return redirect('home')
 
     # return HttpResponse('logged out')

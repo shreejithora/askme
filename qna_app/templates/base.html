@@ -16,11 +16,17 @@
   </head>
   <body>
         <div class="pb-2 mt-4 mb-2 border-bottom">
-                <h1>AskMate</h1>
-                <h6>Where you get your answers.</h6>
-                {%if 'id' in request.session%}
-                  <h6>Welcome, {{request.session.name}}! |<a href="{%  url 'user:logout' %}">Log Out</a></h6>
-                {%endif%}
+          <h1>Ask<b> Mate</b></h1>
+          <h6>Where you get your answers.</h6>
+          {%if 'id' in request.session%}
+            <h6>Welcome, {{request.session.name}}! |<a href="{%  url 'user:logout' %}">Log Out</a></h6>
+          {%endif%}
+          {% block login%}
+          {%if 'id' not in request.session%}
+            <h6>Welcome! |<a href="{%  url 'user:login' %}">Login</a></h6>
+          {%endif%}
+          {% endblock %}
+          
         </div>
     {% block main_content %}
         <h1>Hello World!</h1>

@@ -9,35 +9,36 @@ from django.views.generic import CreateView, ListView
 class QuestionListView(ListView):
     queryset = QuestionModel.objects.all()
 
-def question(requests):
-    if 'id' in requests.session:
-        Question = QuestionModel.objects.all()
-        return render(requests, 'questionmodel_list.html', {'ques':Question})
-    else:
-        return redirect('user:login')
+def home(request):
+    return render(request, 'home.html')
 
-    
+def question(requests):
+    Question = QuestionModel.objects.all()
+    return render(requests, 'questionmodel_list.html', {'ques':Question})
 
 def popular(request):
     Question = QuestionModel.objects.all()
     return render(request, 'popular.html', {'ques':Question})
 
 def addquestion(request):
-    if(request.method == 'POST'):
-        form = QuestionForm(request.POST, request.FILES)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('qna:read')
-            except:
-                return HttpResponse('Failed')
+    if 'id' in request.session:
+        if(request.method == 'POST'):
+            form = QuestionForm(request.POST, request.FILES)
+            if form.is_valid():
+                try:
+                    form.save()
+                    return redirect('qna:detail', id=id)
+                except:
+                    return HttpResponse('Failed')
+            else:
+                print(form.errors)
+                return HttpResponse('Form not Valid')
         else:
-            print(form.errors)
-            return HttpResponse('Form not Valid')
+            # form = QuestionForm
+            category = CategoryModel.objects.all()
+            return render(request, 'questionmodel_create.html', {'category':category})
     else:
-        # form = QuestionForm
-        category = CategoryModel.objects.all()
-        return render(request, 'questionmodel_create.html', {'category':category})
+        return redirect('user:login')
 
 def update_question(request, id):
     question = QuestionModel.objects.get(id=id)
@@ -46,7 +47,7 @@ def update_question(request, id):
         if form.is_valid():
             try:
                 form.save()
-                return redirect('qna:read')
+                return redirect('qna:detail', id=id)
             except:
                 return HttpResponse('Failed')
         else:
@@ -65,7 +66,7 @@ def vote_question(request, id):
     question = QuestionModel.objects.get(id=id)   
     question.question_votes += 1
     question.save()
-    return redirect('qna:read')
+    return redirect('qna:detail', id=id)
 
 def add_ans(request, id):
     if request.method == "POST":

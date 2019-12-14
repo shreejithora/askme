@@ -35,6 +35,10 @@ class AnswerModel(models.Model):
     def __str__(self):
         return(self.ans_desc[:50]) + '...'
 
+# class VotedbyModel
+
+
+
 
 
 
